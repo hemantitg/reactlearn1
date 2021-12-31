@@ -7,6 +7,9 @@ const ExpenseForm = (props)=>{
     const [enteredAmount, setEnteredAmount] = useState(''); 
     const [enteredDate, setEnteredDate] = useState('');
 
+    const [isValidName, setIsValidName] = useState(true);
+    const [isValidAmount, setIsValidAmount] = useState(true);
+
 
     const titleChangeHandler = (event)=>{
         // console.log(event.target.value);
@@ -18,6 +21,16 @@ const ExpenseForm = (props)=>{
     const submitHandler = (event)=>{
         event.preventDefault();
 
+        if(enteredTitle.trim().length === 0){
+            setIsValidName(false);
+            return;
+        }
+        
+        if(enteredAmount.trim().length === 0){
+            setIsValidAmount(false);
+            return;
+        }
+        
         const expenseData = {
             title:enteredTitle,
             amount:enteredAmount,
@@ -25,8 +38,7 @@ const ExpenseForm = (props)=>{
         }
 
         props.onSaveExpenseData(expenseData);
-        
-        // console.log(expenseData);
+
 
         setEnteredTitle('');
         setEnteredDate('');
@@ -39,11 +51,15 @@ const ExpenseForm = (props)=>{
             <div className="new-expense__controls">
                 <div className="new-expense__controls">
                     <label>Title</label>
-                    <input type="text" value={enteredTitle} onChange={titleChangeHandler}/>
+                    <input type="text" 
+                    className={`inputtxt ${!isValidName ? 'invalidtxbx' : ''}`}
+                    value={enteredTitle} onChange={titleChangeHandler}/>
                 </div>
                 <div className="new-expense__controls">
                     <label>Amount</label>
-                    <input type="number" min="0.01" step="0.01" value={enteredAmount} onChange={amountChangeHandler}/>
+                    <input type="number" min="0.01" step="0.01" 
+                    className={`inputtxt ${!isValidAmount ? 'invalidtxbx' : ''}`}
+                    value={enteredAmount} onChange={amountChangeHandler}/>
                 </div>
 
                 <div className="new-expense__controls">
