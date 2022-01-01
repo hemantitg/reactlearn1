@@ -1,4 +1,5 @@
 import React from "react";
+import Wrapper from "../UI/Wrapper";
 
 const filterStyle = {
     width: '152px',
@@ -24,15 +25,15 @@ const ExpenseFilter = (props)=>{
     }
 
     return (
-        <div>
-            <select style={filterStyle} onChange={filterChangeHandler}>
+        <Wrapper>
+            <select style={filterStyle} onChange={filterChangeHandler}> 
                 <option value="">Please Select</option>
                 {years.map((el, i)=>{
                     return <option key={i} value={el}>{el}</option>;
                 })}
             </select>
             <button style={clearbtncss} type="button" onClick={onFilterClearedClick}>Clear Filter</button>
-        </div>
+        </Wrapper>
     );
 }
 
